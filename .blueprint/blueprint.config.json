@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "blueprintos-config",
+  "version": "1.0.0",
+
+  "project": {
+    "name": "Security Secure System AI Agent",
+    "description": "AI Agent untuk menganalisis, menguji, membangun, memperbaiki, dan memverifikasi keamanan software system secara evidence-driven.",
+    "version": "0.1.0",
+    "type": "security-ai-agent",
+    "created": "2026-07-28",
+    "owner": "system"
+  },
+
+  "blueprintos": {
+    "version": "1.0.0",
+    "mode": "production",
+    "strict_validation": true,
+    "auto_review": true,
+    "require_dod": true,
+    "require_acceptance_criteria": true,
+    "require_yaml_front_matter": true,
+    "enforce_traceability": true
+  },
+
+  "directories": {
+    "blueprint_root": ".blueprint",
+    "source_root": "src",
+    "test_root": "tests",
+    "docs_root": "docs"
+  },
+
+  "standards": {
+    "coding": {
+      "file_naming": "kebab-case",
+      "variable_naming": "camelCase",
+      "constant_naming": "UPPER_SNAKE_CASE",
+      "class_naming": "PascalCase"
+    },
+    "documentation": {
+      "format": "markdown",
+      "require_yaml_front_matter": true,
+      "require_examples": true,
+      "diagram_format": "mermaid"
+    },
+    "api": {
+      "specification": "openapi-3.1",
+      "async_specification": "asyncapi-2.6",
+      "versioning": "semantic",
+      "base_path": "/api/v1"
+    },
+    "testing": {
+      "unit_test_coverage_min": 80,
+      "integration_test_required": true,
+      "e2e_test_required": true
+    },
+    "security": {
+      "require_security_review": true,
+      "require_dependency_audit": true,
+      "require_secret_scanning": true
+    },
+    "accessibility": {
+      "wcag_level": "AA",
+      "require_accessibility_review": true
+    },
+    "performance": {
+      "max_bundle_size_kb": 500,
+      "max_api_response_time_ms": 500,
+      "lighthouse_score_min": 90
+    }
+  },
+
+  "orchestration": {
+    "enabled": true,
+    "mode": "sequential",
+    "prompts_directory": "prompts/orchestration",
+    "parallel_execution": false,
+    "retry_on_failure": true,
+    "max_retries": 3
+  },
+
+  "agents": {
+    "enabled": true,
+    "definitions_directory": "agents",
+    "max_concurrent_agents": 5,
+    "require_agent_approval": false,
+    "default_agent": "solution-architect"
+  },
+
+  "tasks": {
+    "board_file": "tasks/task-board.json",
+    "schema_file": "tasks/task-schema.json",
+    "require_acceptance_criteria": true,
+    "require_dod": true,
+    "estimation_scale": ["xs", "s", "m", "l", "xl"]
+  },
+
+  "features": {
+    "directory": "features",
+    "require_prd": true,
+    "require_architecture": true,
+    "require_api_spec": true,
+    "require_test_cases": true,
+    "require_deployment_notes": true,
+    "require_rollback_strategy": true,
+    "template_directory": "templates/feature-template"
+  },
+
+  "validation": {
+    "enabled": true,
+    "on_save": true,
+    "on_commit": true,
+    "on_pr": true,
+    "rules_file": "validation/validation-rules.json",
+    "fail_on_error": true,
+    "fail_on_warning": false
+  },
+
+  "reviews": {
+    "enabled": true,
+    "require_peer_review": true,
+    "require_automated_review": true,
+    "min_reviewers": 1,
+    "require_architecture_review": true,
+    "require_security_review": true
+  },
+
+  "quality_gates": {
+    "enabled": true,
+    "gates": ["validation", "testing", "security", "performance", "documentation", "review"]
+  },
+
+  "deployment": {
+    "environments": ["development", "staging", "production"],
+    "require_approval": {
+      "development": false,
+      "staging": true,
+      "production": true
+    },
+    "rollback_enabled": true,
+    "blue_green_deployment": true
+  },
+
+  "versioning": {
+    "scheme": "semver",
+    "auto_increment": true,
+    "tag_format": "v{version}",
+    "changelog_enabled": true,
+    "changelog_file": "CHANGELOG.md"
+  },
+
+  "git": {
+    "main_branch": "main",
+    "feature_branch_prefix": "feature/",
+    "bugfix_branch_prefix": "bugfix/",
+    "hotfix_branch_prefix": "hotfix/",
+    "release_branch_prefix": "release/",
+    "commit_message_format": "conventional-commits"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://blueprintos.dev/schemas/adr.schema.json",
+  "title": "ADR",
+  "description": "Definition of an Architecture Decision Record.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique ADR identifier.", "pattern": "^adr-\\d+$" },
+    "title": { "type": "string", "description": "ADR title.", "minLength": 1 },
+    "status": { "type": "string", "enum": ["proposed", "accepted", "rejected", "deprecated", "superseded"] },
+    "date": { "type": "string", "format": "date", "description": "ADR creation date." },
+    "context": { "type": "string", "description": "Context and problem being addressed." },
+    "decision": { "type": "string", "description": "The decision made." },
+    "consequences": {
+      "type": "object",
+      "properties": {
+        "positive": { "type": "array", "items": { "type": "string" } },
+        "negative": { "type": "array", "items": { "type": "string" } },
+        "neutral": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "alternatives": {
+      "type": "array",
+      "description": "Alternatives considered.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "pros": { "type": "array", "items": { "type": "string" } },
+          "cons": { "type": "array", "items": { "type": "string" } },
+          "rejected_because": { "type": "string" }
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "deciders": { "type": "array", "description": "People who made the decision.", "items": { "type": "string" } },
+    "references": { "type": "array", "description": "Reference links.", "items": { "type": "string" } }
+  },
+  "required": ["id", "title", "status", "date", "context", "decision"],
+  "additionalProperties": false
+}

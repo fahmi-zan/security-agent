@@ -1,0 +1,331 @@
+# PROMPT: DESIGN-FROM-IMAGE
+
+---
+
+## METADATA
+
+```yaml
+id: design-from-image-v1
+version: 1.0.0
+category: design
+objective: Transform UI mockups/sketches into a complete DESIGN.md UI/UX reference
+produces:
+  - DESIGN.md
+  - design-token-observation
+  - screen-inventory
+status: active
+last_updated: 2026-07-28
+---
+
+---
+
+## OBJECTIVE
+
+Transform one or more UI mockup/sketch images into a complete, machine-readable and human-readable `DESIGN.md` UI/UX reference document (24 sections, English output).
+
+Ubah satu atau lebih image UI mockup/sketch menjadi dokumen referensi `DESIGN.md` UI/UX yang lengkap (24 bagian, output English).
+
+---
+
+## INPUTS
+
+1. UI Mockup/Sketch Image(s)
+   - Format: PNG, JPG, JPEG, WebP, atau PDF
+   - Source: local file path(s), atau image(s) yang dilampirkan
+   - Quantity: satu atau banyak (agent mendeteksi otomatis single vs multi-screen)
+   - Required: Yes
+
+2. Design Reference Skills (opsional, otomatis dipakai jika tersedia)
+   - Global skills: `~/.agents/skills/image-to-code`, `imagegen-frontend-web`, `high-end-visual-design`, `design-taste-frontend`
+   - Source: agent workspace global
+   - Required: No
+
+3. Product/Feature Context (opsional)
+   - Source: `.blueprint/features/{feature-id}/` jika image terkait fitur tertentu
+   - Required: No
+
+---
+
+## TASK
+
+1. Baca dan analisis semua image mockup/sketch secara menyeluruh
+2. Identifikasi jumlah screen, struktur layout, komponen, warna, tipografi, spacing, dan interaksi
+3. Susun `DESIGN.md` dengan 24 bagian lengkap (English)
+4. Untuk multi-screen: identifikasi hubungan antar-screen dan user flow
+5. Untuk single image: pecah menjadi komponen dan spec detail per area
+
+## Instructions
+
+1. Analisis visual setiap image: layout, komponen, state, spacing, warna, font, ikon
+2. Ekstrak design token yang teramati (jangan mengarang — hanya yang terlihat)
+3. Catat hal yang tidak jelas ke Open Questions, jangan menebak
+4. Susun 24 bagian sesuai OUTPUT FORMAT
+5. Jaga konsistensi: terminology, format tabel, level heading
+6. Setiap bagian harus evidence-based dari image (bukan asumsi)
+
+---
+
+## CONSTRAINTS
+
+### MUST DO
+
+- Output `DESIGN.md` SELALU dalam English
+- Semua 24 bagian wajib ada (boleh "Not observed" jika tidak terlihat)
+- Beri label confidence (High/Medium/Low) per bagian
+- Identifikasi asumsi vs observasi secara eksplisit
+- Gunakan tabel untuk data terstruktur (screen, component, token)
+- Gunakan Mermaid untuk user flow dan navigation
+- Catat state components (default/hover/active/error/loading/empty)
+- Rujuk skill global untuk analisis visual premium jika tersedia
+
+### MUST NOT DO
+
+- Jangan mengarang design token yang tidak terlihat di image — tulis "Not observed"
+- Jangan menebak isi Open Questions
+- Jangan mengubah struktur 24 bagian
+- Jangan menghasilkan kode (prompt ini hanya DESAIN reference, bukan implementasi)
+- Jangan menebak warna/font dari asumsi — hanya dari observasi image
+- Jangan abaikan multi-screen jika diberikan lebih dari satu image
+
+---
+
+## REASONING RULES
+
+1. Observasi dulu, interpretasi kemudian — evidence first
+2. Screen inventory sebelum component spec (hierarki: screen → layout → component → state)
+3. Token extraction dari konsistensi visual antar-screen (bukan per-screen saja)
+4. Bila ragu antara observasi dan asumsi, tandai sebagai asumsi + confidence rendah
+5. Untuk gambar buram/kecil: catat keterbatasan di Confidence Report, bukan menebak
+
+---
+
+## VALIDATION RULES
+
+1. Semua 24 bagian hadir dalam urutan yang benar
+2. Setiap klaim visual dapat ditelusuri ke image (atau ditandai asumsi)
+3. Tidak ada placeholder/TODO di output
+4. Terminologi konsisten antar bagian
+5. Format tabel konsisten (header sama, tidak putus)
+6. Confidence Report mencakup semua bagian
+7. Output English penuh
+
+---
+
+## OUTPUT FORMAT
+
+Tulis ke: `DESIGN.md` di project root, atau `.blueprint/features/{feature-id}/design.md` jika image mockup terkait fitur tertentu (agent menentukan dari konteks).
+
+```markdown
+---
+id: design-reference
+title: DESIGN.md - UI/UX Design Reference
+owner: designer
+status: draft
+version: 1.0.0
+depends_on: [image-source]
+generates: [frontend-implementation]
+reviewers: [product-manager, frontend-architect]
+last_updated: YYYY-MM-DD
+tags: [design, ui, ux, reference]
+---
+
+# DESIGN.md — UI/UX Design Reference
+
+## 1. Metadata
+
+| Field | Value |
+|-------|-------|
+| Source image(s) | path(s) |
+| Format | PNG/JPG/PDF |
+| Screens detected | N |
+| Version | 1.0.0 |
+| Date | YYYY-MM-DD |
+| Owner | designer |
+
+## 2. Design Summary
+
+{Executive summary: what the design is, key characteristics, overall feel}
+
+## 3. Design Principles
+
+1. {Principle} — {explanation}
+
+## 4. Screen Inventory
+
+| # | Screen ID | Name | Purpose | Source image |
+|---|-----------|------|---------|--------------|
+| 1 | S01 | {name} | {purpose} | {file} |
+
+## 5. User Flow
+
+```mermaid
+flowchart LR
+    S01 --> S02
+    S02 --> S03
+```
+
+## 6. Screen Specification
+
+### S01: {Screen name}
+- **Purpose:** {purpose}
+- **Key elements:** {list}
+- **Layout:** {description}
+- **Primary action:** {action}
+
+## 7. Layout Specification
+
+### S01: {Screen name}
+| Area | Position | Description |
+|------|----------|-------------|
+| Header | top | {desc} |
+| Content | middle | {desc} |
+
+## 8. Component Inventory
+
+| # | Component ID | Name | Type | Screens used |
+|---|--------------|------|------|--------------|
+| 1 | C01 | {name} | {button/input/card/...} | S01, S02 |
+
+## 9. Component Specification
+
+### C01: {Component name}
+- **Type:** {type}
+- **Purpose:** {purpose}
+- **Structure:** {hierarchy / DOM sketch}
+- **Styling:** {colors, typography, spacing, radius, shadow observed}
+
+## 10. State Specification
+
+| Component | State | Visual change | Trigger |
+|-----------|-------|---------------|---------|
+| C01 | default | {desc} | - |
+| C01 | hover | {desc} | mouse hover |
+| C01 | active | {desc} | click/press |
+| C01 | error | {desc} | invalid input |
+| C01 | loading | {desc} | async pending |
+| C01 | empty | {desc} | no data |
+
+## 11. Interaction Specification
+
+| # | Trigger | Action | Response | Feedback |
+|---|---------|--------|----------|----------|
+| 1 | {event} | {behavior} | {visual response} | {confirmation} |
+
+## 12. Form Specification
+
+### Form: {name} (Screen: S01)
+| Field | Type | Label | Placeholder | Validation | Error message |
+|-------|------|-------|-------------|------------|---------------|
+| {name} | {text/email/...} | {label} | {placeholder} | {required/format} | {message} |
+
+## 13. Data Visualization
+
+| # | Type | Screen | Purpose | Data source observed |
+|---|------|--------|---------|----------------------|
+| 1 | {chart/table/...} | S01 | {purpose} | {desc} |
+
+## 14. Navigation Specification
+
+| Screen | Navigates to | Trigger | Context |
+|--------|--------------|---------|---------|
+| S01 | S02 | {click/action} | {when} |
+
+## 15. Responsive Specification
+
+| Breakpoint | Target | Layout behavior observed |
+|------------|--------|--------------------------|
+| Desktop (≥1200px) | {layout} | {desc} |
+| Tablet (768-1199px) | {layout} | {desc} |
+| Mobile (<768px) | {layout} | {desc} |
+
+## 16. Accessibility Specification
+
+- **Contrast:** {observed / not verified}
+- **Semantic HTML:** {observed}
+- **Keyboard navigation:** {observed / not observed in image}
+- **Focus states:** {observed}
+- **ARIA/labels:** {observed / not observed}
+- **WCAG level target:** AA (default)
+
+## 17. Motion Specification
+
+| # | Element | Trigger | Animation | Duration | Easing |
+|---|---------|---------|-----------|----------|--------|
+| 1 | {element} | {trigger} | {type} | {ms} | {easing} |
+
+## 18. Design Token Observation
+
+### Color
+| Token | Value | Usage |
+|-------|-------|-------|
+| color-primary | #HEX | buttons, links |
+
+### Typography
+| Token | Font | Weight | Size | Usage |
+|-------|------|--------|------|-------|
+| font-heading | {family} | {weight} | {px} | headings |
+
+### Spacing
+| Token | Value | Usage |
+|-------|-------|-------|
+| space-sm | 8px | between elements |
+
+### Radius & Shadow
+| Token | Value | Usage |
+|-------|-------|-------|
+| radius-md | 8px | cards |
+| shadow-sm | {desc} | cards |
+
+## 19. Assets
+
+| # | Asset | Type | Source | Usage |
+|---|-------|------|--------|-------|
+| 1 | {icon/logo/image/font} | {svg/png/webfont} | {observed path} | {where used} |
+
+## 20. Engineering Notes
+
+- {Implementation considerations: framework implications, responsive, performance}
+
+## 21. Implementation Priority
+
+| Priority | Item | Screen/Component | Reason |
+|----------|------|------------------|--------|
+| P0 | {item} | {ref} | {core flow / blocking} |
+| P1 | {item} | {ref} | {important} |
+| P2 | {item} | {ref} | {nice to have} |
+
+## 22. Open Questions
+
+1. {Question} — {why it matters}
+
+## 23. Assumptions
+
+1. {Assumption} — confidence {High/Medium/Low}
+
+## 24. Confidence Report
+
+| Section | Confidence | Reason |
+|---------|------------|--------|
+| 1-3 | High | observable |
+| 4 | High | screen count clear |
+| ... | ... | ... |
+| 15 Responsive | Low | breakpoints not visible in image |
+```
+
+---
+
+## SUCCESS CRITERIA
+
+- [ ] `DESIGN.md` dihasilkan dengan 24 bagian lengkap dan berurutan
+- [ ] Output English penuh
+- [ ] Semua observasi dapat ditelusuri ke image
+- [ ] Asumsi dan Open Questions eksplisit
+- [ ] Confidence Report mencakup semua bagian
+- [ ] Tidak ada placeholder/TODO
+- [ ] Siap dipakai frontend engineer untuk implementasi
+
+---
+
+## END OF PROMPT
+
+This is PROMPT: DESIGN-FROM-IMAGE.

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://blueprintos.dev/schemas/prompt.schema.json",
+  "title": "prompt",
+  "description": "Definition of prompt.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique identifier." }
+  },
+  "required": ["id"],
+  "additionalProperties": false
+}

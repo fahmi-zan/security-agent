@@ -1,0 +1,22 @@
+{
+  "id": "devops-engineer",
+  "name": "devops engineer",
+  "purpose": "Execute devops engineer tasks within BlueprintOS.",
+  "responsibilities": [
+    "Analyze requirements",
+    "Produce standard artifacts",
+    "Ensure quality"
+  ],
+  "inputs": [],
+  "outputs": [],
+  "dependencies": [],
+  "constraints": [],
+  "reasoning_process": [],
+  "decision_rules": [],
+  "escalation_rules": [],
+  "definition_of_done": [
+    "All tasks complete",
+    "Output validated"
+  ],
+  "success_metrics": []
+}

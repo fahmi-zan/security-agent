@@ -1,0 +1,53 @@
+{
+  "id": "review-workflow",
+  "name": "Review Workflow",
+  "version": "1.0.0",
+  "description": "Workflow for reviewing artifacts before acceptance.",
+  "trigger": "artifact-completed",
+  "artifact_types": [
+    "documentation",
+    "architecture",
+    "code",
+    "feature",
+    "release"
+  ],
+  "steps": [
+    {
+      "name": "Self-Review",
+      "owner": "artifact-owner",
+      "checks": ["artifact-complete", "no-placeholders", "follows-standards"]
+    },
+    {
+      "name": "Validation",
+      "owner": "validation-engine",
+      "checks": ["links-valid", "references-valid", "schemas-valid", "no-duplicates"]
+    },
+    {
+      "name": "Automated-Review",
+      "owner": "reviewer",
+      "checks": ["per-artifact-checklist"]
+    },
+    {
+      "name": "Expert-Review",
+      "owner": "domain-expert",
+      "checks": ["per-domain-criteria"],
+      "required_for": ["architecture", "security", "database"]
+    },
+    {
+      "name": "Approval",
+      "owner": "reviewer",
+      "pass_condition": "no-critical-or-high-findings",
+      "outputs": ["review-report.json"]
+    }
+  ],
+  "severity_rules": {
+    "critical": "must-fix-before-approval",
+    "high": "must-fix-before-approval",
+    "medium": "should-fix-or-documented-action-item",
+    "low": "informational"
+  },
+  "report": {
+    "file": "reviews/review-report.json",
+    "fields": ["artifact_id", "artifact_type", "review_type", "findings", "approval"]
+  }
+}

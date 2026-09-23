@@ -1,0 +1,28 @@
+{
+  "feature_id": "{feature-id}",
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "{Task title}",
+      "description": "{Detailed description}",
+      "priority": "high",
+      "owner": "{agent-id}",
+      "status": "todo",
+      "depends_on": [],
+      "blocks": [],
+      "acceptance_criteria": [
+        "{Criterion 1}",
+        "{Criterion 2}"
+      ],
+      "definition_of_done": [
+        "{DoD item 1}",
+        "{DoD item 2}"
+      ],
+      "estimated_complexity": "m",
+      "related_features": ["{feature-id}"],
+      "related_adrs": [],
+      "related_apis": [],
+      "related_tests": []
+    }
+  ]
+}

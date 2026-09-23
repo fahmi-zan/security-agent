@@ -1,0 +1,32 @@
+{
+  "$schema": "https://blueprintos.dev/schemas/task.schema.json",
+  "id": "TASK-001",
+  "title": "Example: Implement user registration API",
+  "description": "Create POST /api/v1/auth/register endpoint with email validation, password hashing, and user creation.",
+  "priority": "high",
+  "owner": "backend-architect",
+  "status": "in-progress",
+  "depends_on": [],
+  "blocks": ["TASK-002"],
+  "acceptance_criteria": [
+    "POST /api/v1/auth/register returns 201 on success",
+    "Returns 400 with VALIDATION_ERROR on invalid email",
+    "Returns 409 if email already registered",
+    "Password stored as bcrypt hash",
+    "Response contains user id and no password",
+    "Rate limited to 10 req/min"
+  ],
+  "definition_of_done": [
+    "Endpoint implemented",
+    "Unit tests cover success and error paths",
+    "Integration test against test database passes",
+    "OpenAPI spec updated",
+    "Security review passed",
+    "No critical or high findings"
+  ],
+  "estimated_complexity": "m",
+  "related_features": ["user-auth"],
+  "related_adrs": ["adr-002"],
+  "related_apis": ["POST /api/v1/auth/register"],
+  "related_tests": ["auth/register.test.ts"]
+}

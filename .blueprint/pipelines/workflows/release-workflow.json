@@ -1,0 +1,60 @@
+{
+  "id": "release-workflow",
+  "name": "Release Workflow",
+  "version": "1.0.0",
+  "description": "Workflow for releasing a version to production.",
+  "trigger": "quality-gate-approved",
+  "steps": [
+    {
+      "name": "Verify Quality Gates",
+      "owner": "quality-gate",
+      "outputs": ["quality-gate-report.json"],
+      "pass_condition": "all-gates-passed"
+    },
+    {
+      "name": "Version Bump",
+      "owner": "release-manager",
+      "outputs": ["version.json"],
+      "rules": "semver"
+    },
+    {
+      "name": "Update Changelog",
+      "owner": "release-manager",
+      "outputs": ["CHANGELOG.md"],
+      "rules": "keep-a-changelog"
+    },
+    {
+      "name": "Create Release Notes",
+      "owner": "release-manager",
+      "outputs": ["RELEASE-NOTES.md"]
+    },
+    {
+      "name": "Create Git Tag",
+      "owner": "release-manager",
+      "outputs": ["v{version}"],
+      "rules": "tag-format-v{version}"
+    },
+    {
+      "name": "Deploy to Production",
+      "owner": "devops-engineer",
+      "outputs": ["deployment"],
+      "requires": ["approval-technical-lead", "approval-product-owner", "approval-devops"]
+    },
+    {
+      "name": "Verify Release",
+      "owner": "qa-engineer",
+      "outputs": ["release-verification"],
+      "checks": ["health-checks", "smoke-tests", "metrics-normal"]
+    },
+    {
+      "name": "Report Release",
+      "owner": "release-manager",
+      "outputs": ["release-report"],
+      "notify": ["stakeholders"]
+    }
+  ],
+  "blockers": {
+    "before-release": ["unresolved-critical-findings", "failed-quality-gates", "missing-approvals"],
+    "after-release": ["critical-errors", "metrics-degraded"]
+  }
+}

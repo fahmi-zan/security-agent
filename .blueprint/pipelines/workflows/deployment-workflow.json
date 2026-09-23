@@ -1,0 +1,46 @@
+{
+  "id": "deployment-workflow",
+  "name": "Deployment Workflow",
+  "version": "1.0.0",
+  "description": "Workflow for deploying to environments with approval gates.",
+  "environments": [
+    {
+      "name": "development",
+      "trigger": "merge-to-main",
+      "automatic": true,
+      "requires_approval": false,
+      "validation": ["all-tests-pass"]
+    },
+    {
+      "name": "staging",
+      "trigger": "manual-or-tag",
+      "automatic": false,
+      "requires_approval": true,
+      "approvers": ["qa-engineer"],
+      "validation": ["quality-gates-pass", "staging-tests-pass"]
+    },
+    {
+      "name": "production",
+      "trigger": "manual",
+      "automatic": false,
+      "requires_approval": true,
+      "approvers": ["technical-lead", "product-owner", "devops-engineer"],
+      "validation": ["all-quality-gates", "release-checklist", "rollback-ready"]
+    }
+  ],
+  "steps": [
+    "verify-pre-deployment-checklist",
+    "run-migrations",
+    "deploy-application",
+    "run-smoke-tests",
+    "verify-health-checks",
+    "monitor-post-deployment",
+    "notify-stakeholders"
+  ],
+  "rollback": {
+    "trigger": ["critical-broken", "data-corruption", "security-vulnerability", "error-rate-gt-5-percent"],
+    "target": "less-than-5-minutes",
+    "steps": ["notify-stakeholders", "trigger-rollback", "verify-rollback", "investigate", "post-mortem"]
+  },
+  "rules_file": "../core/rules/deployment-rules.md"
+}

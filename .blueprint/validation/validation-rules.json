@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "id": "val-001",
+      "name": "YAML Front Matter Check",
+      "description": "Ensure markdown files have YAML front matter.",
+      "severity": "error"
+    },
+    {
+      "id": "val-002",
+      "name": "JSON Schema Check",
+      "description": "Ensure JSON files match their respective schemas.",
+      "severity": "error"
+    }
+  ]
+}

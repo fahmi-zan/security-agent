@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://blueprintos.dev/schemas/agent.schema.json",
+  "title": "Agent",
+  "description": "Definition of an AI agent.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique agent identifier.", "pattern": "^[a-z][a-z0-9-]+$" },
+    "name": { "type": "string", "description": "Agent name." },
+    "purpose": { "type": "string", "description": "Agent purpose." },
+    "responsibilities": { "type": "array", "description": "Agent responsibilities.", "items": { "type": "string" } },
+    "inputs": { "type": "array", "description": "Agent inputs.", "items": { "type": "string" } },
+    "outputs": { "type": "array", "description": "Agent outputs.", "items": { "type": "string" } },
+    "dependencies": { "type": "array", "description": "Agents this agent depends on.", "items": { "type": "string" } },
+    "constraints": { "type": "array", "description": "Agent constraints.", "items": { "type": "string" } },
+    "reasoning_process": { "type": "array", "description": "Agent reasoning steps.", "items": { "type": "string" } },
+    "decision_rules": { "type": "array", "description": "Agent decision rules.", "items": { "type": "string" } },
+    "escalation_rules": { "type": "array", "description": "Agent escalation rules.", "items": { "type": "string" } },
+    "definition_of_done": { "type": "array", "description": "Agent Definition of Done.", "items": { "type": "string" } },
+    "success_metrics": { "type": "array", "description": "Agent success metrics.", "items": { "type": "string" } }
+  },
+  "required": ["id", "name", "purpose", "responsibilities", "definition_of_done"],
+  "additionalProperties": false
+}

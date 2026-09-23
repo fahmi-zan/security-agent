@@ -1,0 +1,75 @@
+{
+  "id": "feature-workflow",
+  "name": "Feature Development Workflow",
+  "version": "1.0.0",
+  "description": "Workflow for taking a feature from idea to production.",
+  "stages": [
+    {
+      "name": "Specify",
+      "owner": "product-manager",
+      "inputs": ["business-context", "product-context"],
+      "outputs": ["prd.md", "acceptance-criteria.md"],
+      "validation": ["feature-schema", "requirements-checklist"]
+    },
+    {
+      "name": "Design",
+      "owner": "solution-architect",
+      "inputs": ["prd.md", "system-architecture"],
+      "outputs": ["architecture.md", "adr/", "api.md"],
+      "validation": ["architecture-checklist", "architecture-review"]
+    },
+    {
+      "name": "Plan",
+      "owner": "planner",
+      "inputs": ["prd.md", "architecture.md"],
+      "outputs": ["tasks.json"],
+      "validation": ["task-schema"]
+    },
+    {
+      "name": "Implement",
+      "owner": "assigned-agents",
+      "inputs": ["tasks.json", "architecture.md", "api.md"],
+      "outputs": ["code", "tests"],
+      "validation": ["implementation-dod", "testing-checklist"]
+    },
+    {
+      "name": "Verify",
+      "owner": "qa-engineer",
+      "inputs": ["code", "tests", "acceptance-criteria.md"],
+      "outputs": ["test-report"],
+      "validation": ["testing-dod", "qa-checklist"]
+    },
+    {
+      "name": "Review",
+      "owner": "reviewer",
+      "inputs": ["code", "documentation", "test-report"],
+      "outputs": ["review-report"],
+      "validation": ["review-checklist", "no-open-blockers"]
+    },
+    {
+      "name": "Release",
+      "owner": "release-manager",
+      "inputs": ["review-report", "quality-gate-report"],
+      "outputs": ["release-notes", "deployment"],
+      "validation": ["quality-gates", "release-checklist"]
+    }
+  ],
+  "gates": [
+    {
+      "after": "Specify",
+      "requires": ["prd approved", "acceptance criteria approved"]
+    },
+    {
+      "after": "Design",
+      "requires": ["architecture review passed", "security review passed"]
+    },
+    {
+      "after": "Verify",
+      "requires": ["all tests pass", "coverage >= 80%"]
+    },
+    {
+      "after": "Review",
+      "requires": ["no critical/high findings"]
+    }
+  ]
+}

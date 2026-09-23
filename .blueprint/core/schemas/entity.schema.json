@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://blueprintos.dev/schemas/entity.schema.json",
+  "title": "entity",
+  "description": "Definition of entity.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique identifier." }
+  },
+  "required": ["id"],
+  "additionalProperties": false
+}

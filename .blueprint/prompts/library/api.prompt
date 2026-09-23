@@ -1,0 +1,99 @@
+# PROMPT: API
+
+---
+
+## METADATA
+
+```yaml
+id: api-v1
+version: 1.0.0
+category: api
+objective: Execute api tasks according to project standards
+produces: [api-artifacts]
+status: active
+last_updated: 2026-09-24
+```
+
+---
+
+## OBJECTIVE
+
+Execute api tasks according to project standards and context.
+
+---
+
+## INPUTS
+
+Required inputs:
+
+1. BlueprintOS Context
+   - Format: Markdown
+   - Source: .blueprint/core/context/
+   - Required: yes
+
+2. Standards
+   - Format: Markdown
+   - Source: .blueprint/core/standards/
+   - Required: yes
+
+---
+
+## TASK
+
+Perform api tasks effectively.
+
+## Instructions
+
+1. Read context.
+2. Follow rules.
+3. Produce requested output.
+
+---
+
+## CONSTRAINTS
+
+### MUST DO
+
+- Follow all rules defined in .blueprint/core/rules/
+- Enforce validation.
+
+### MUST NOT DO
+
+- Invent requirements.
+- Break existing architecture.
+
+---
+
+## REASONING RULES
+
+1. Analyze context.
+2. Plan approach.
+3. Execute safely.
+
+---
+
+## VALIDATION RULES
+
+1. Output matches expected format.
+2. No regressions introduced.
+
+---
+
+## OUTPUT FORMAT
+
+Standard Markdown or specific source files.
+
+---
+
+## SUCCESS CRITERIA
+
+This prompt is successful when:
+
+- [ ] Task completes without error.
+- [ ] Output is validated against BlueprintOS standards.
+
+---
+
+## END OF PROMPT
+
+This is PROMPT: API.

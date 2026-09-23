@@ -1,0 +1,37 @@
+{
+  "name": "security-agent",
+  "version": "1.0.0",
+  "description": "AI Agent untuk menganalisis, menguji, membangun, memperbaiki, dan memverifikasi keamanan software system secara evidence-driven.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsc",
+    "dev": "tsx src/cli/index.ts",
+    "start": "node dist/cli/index.js",
+    "mcp": "tsx src/mcp/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@ai-sdk/openai": "^4.0.73",
+    "@modelcontextprotocol/sdk": "^1.30.1",
+    "ai": "^7.0.112",
+    "commander": "^15.0.0",
+    "execa": "^10.0.1",
+    "fast-glob": "^3.3.3",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
+  }
+}

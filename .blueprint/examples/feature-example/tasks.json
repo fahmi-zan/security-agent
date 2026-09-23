@@ -1,0 +1,108 @@
+{
+  "feature_id": "user-auth",
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Create users table migration",
+      "description": "Add users table with unique email index and password_hash column.",
+      "priority": "high",
+      "owner": "database-architect",
+      "status": "done",
+      "depends_on": [],
+      "blocks": ["TASK-002"],
+      "acceptance_criteria": [
+        "Migration applies cleanly",
+        "email column unique",
+        "Rollback migration provided"
+      ],
+      "definition_of_done": [
+        "Migration tested on staging",
+        "Index on email exists",
+        "Rollback tested"
+      ],
+      "estimated_complexity": "s",
+      "related_features": ["user-auth"],
+      "related_adrs": [],
+      "related_apis": [],
+      "related_tests": []
+    },
+    {
+      "id": "TASK-002",
+      "title": "Implement POST /api/v1/auth/register",
+      "description": "Registration endpoint with validation and bcrypt hashing.",
+      "priority": "high",
+      "owner": "backend-architect",
+      "status": "in-progress",
+      "depends_on": ["TASK-001"],
+      "blocks": ["TASK-003"],
+      "acceptance_criteria": [
+        "Returns 201 on success",
+        "Returns 400 on invalid email",
+        "Returns 409 on duplicate email",
+        "Password stored as bcrypt hash"
+      ],
+      "definition_of_done": [
+        "Endpoint implemented",
+        "Unit + integration tests pass",
+        "OpenAPI updated",
+        "Security review passed"
+      ],
+      "estimated_complexity": "m",
+      "related_features": ["user-auth"],
+      "related_adrs": ["adr-002"],
+      "related_apis": ["POST /api/v1/auth/register"],
+      "related_tests": ["auth/register.test.ts"]
+    },
+    {
+      "id": "TASK-003",
+      "title": "Implement login and token issuance",
+      "description": "Login endpoint returning JWT access and refresh tokens.",
+      "priority": "high",
+      "owner": "backend-architect",
+      "status": "todo",
+      "depends_on": ["TASK-002"],
+      "blocks": ["TASK-004"],
+      "acceptance_criteria": [
+        "Returns tokens on valid credentials",
+        "Returns 401 on invalid credentials",
+        "Rate limited"
+      ],
+      "definition_of_done": [
+        "Endpoint implemented",
+        "Token rotation works",
+        "Tests pass",
+        "Security review passed"
+      ],
+      "estimated_complexity": "m",
+      "related_features": ["user-auth"],
+      "related_adrs": ["adr-002"],
+      "related_apis": ["POST /api/v1/auth/login"],
+      "related_tests": ["auth/login.test.ts"]
+    },
+    {
+      "id": "TASK-004",
+      "title": "Implement auth middleware for protected routes",
+      "description": "Middleware that validates JWT on protected routes.",
+      "priority": "medium",
+      "owner": "backend-architect",
+      "status": "backlog",
+      "depends_on": ["TASK-003"],
+      "blocks": [],
+      "acceptance_criteria": [
+        "Rejects missing/invalid tokens with 401",
+        "Allows valid tokens through",
+        "No DB lookup on token verify"
+      ],
+      "definition_of_done": [
+        "Middleware implemented",
+        "Protected route tests pass",
+        "Performance: no N+1"
+      ],
+      "estimated_complexity": "s",
+      "related_features": ["user-auth"],
+      "related_adrs": ["adr-002"],
+      "related_apis": [],
+      "related_tests": ["auth/middleware.test.ts"]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "board": "blueprintos-task-board",
+  "version": "1.0.0",
+  "updated_at": "2026-07-28",
+  "columns": ["backlog", "todo", "in-progress", "blocked", "in-review", "done", "cancelled"],
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Create users table migration",
+      "feature": "user-auth",
+      "owner": "database-architect",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "id": "TASK-002",
+      "title": "Implement POST /api/v1/auth/register",
+      "feature": "user-auth",
+      "owner": "backend-architect",
+      "status": "in-progress",
+      "priority": "high"
+    },
+    {
+      "id": "TASK-003",
+      "title": "Implement login and token issuance",
+      "feature": "user-auth",
+      "owner": "backend-architect",
+      "status": "todo",
+      "priority": "high"
+    },
+    {
+      "id": "TASK-004",
+      "title": "Implement auth middleware",
+      "feature": "user-auth",
+      "owner": "backend-architect",
+      "status": "backlog",
+      "priority": "medium"
+    }
+  ]
+}

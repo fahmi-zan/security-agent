@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "blueprintos-manifest",
+  "version": "1.0.0",
+  "name": "BlueprintOS",
+  "description": "AI-Native Software Delivery Operating System",
+  "type": "operating-system",
+  "created": "2026-07-28",
+  "last_updated": "2026-07-28",
+  "status": "active",
+  "owner": "system",
+
+  "repository": {
+    "structure_version": "1.0.0",
+    "root": ".blueprint",
+    "directories": {
+      "core": {
+        "path": "core",
+        "purpose": "Core system definitions and standards",
+        "subdirectories": {
+          "context": "Business and product context",
+          "architecture": "System architecture definitions",
+          "standards": "Engineering standards",
+          "rules": "Coding and process rules",
+          "contracts": "API contracts",
+          "schemas": "JSON schemas"
+        }
+      },
+      "features": { "path": "features", "purpose": "Feature specifications", "pattern": "{feature-id}/" },
+      "tasks": { "path": "tasks", "purpose": "Task management" },
+      "dod": { "path": "dod", "purpose": "Definition of Done library" },
+      "checklists": { "path": "checklists", "purpose": "Checklist library" },
+      "reviews": { "path": "reviews", "purpose": "Review standards" },
+      "adr": { "path": "adr", "purpose": "Architecture Decision Records" },
+      "prompts": {
+        "path": "prompts",
+        "purpose": "Prompt library",
+        "subdirectories": {
+          "orchestration": "12-prompt orchestration system",
+          "library": "Reusable prompts"
+        }
+      },
+      "agents": { "path": "agents", "purpose": "AI agent definitions" },
+      "pipelines": {
+        "path": "pipelines",
+        "purpose": "Automation pipelines",
+        "subdirectories": {
+          "workflows": "Workflow definitions",
+          "automation": "Automation scripts"
+        }
+      },
+      "governance": { "path": "governance", "purpose": "Governance rules" },
+      "templates": { "path": "templates", "purpose": "Document templates" },
+      "examples": { "path": "examples", "purpose": "Example implementations" },
+      "validation": { "path": "validation", "purpose": "Validation rules and scripts" }
+    }
+  },
+
+  "orchestration": {
+    "system_version": "1.0.0",
+    "prompts": [
+      { "id": "01-master-orchestrator", "name": "MASTER_ORCHESTRATOR", "path": "prompts/orchestration/01-MASTER_ORCHESTRATOR.prompt", "dependencies": [], "produces": ["execution-plan", "coordination-state"] },
+      { "id": "02-system-architect", "name": "SYSTEM_ARCHITECT", "path": "prompts/orchestration/02-SYSTEM_ARCHITECT.prompt", "dependencies": ["01-master-orchestrator"], "produces": ["architecture-design", "adrs"] },
+      { "id": "03-repository-generator", "name": "REPOSITORY_GENERATOR", "path": "prompts/orchestration/03-REPOSITORY_GENERATOR.prompt", "dependencies": ["02-system-architect"], "produces": ["repository-structure"] },
+      { "id": "04-document-engine", "name": "DOCUMENT_ENGINE", "path": "prompts/orchestration/04-DOCUMENT_ENGINE.prompt", "dependencies": ["03-repository-generator"], "produces": ["documentation"] },
+      { "id": "05-rule-engine", "name": "RULE_ENGINE", "path": "prompts/orchestration/05-RULE_ENGINE.prompt", "dependencies": ["02-system-architect"], "produces": ["coding-standards", "process-rules"] },
+      { "id": "06-schema-engine", "name": "SCHEMA_ENGINE", "path": "prompts/orchestration/06-SCHEMA_ENGINE.prompt", "dependencies": ["02-system-architect", "04-document-engine"], "produces": ["json-schemas"] },
+      { "id": "07-prompt-engine", "name": "PROMPT_ENGINE", "path": "prompts/orchestration/07-PROMPT_ENGINE.prompt", "dependencies": ["05-rule-engine"], "produces": ["prompt-library"] },
+      { "id": "08-agent-engine", "name": "AGENT_ENGINE", "path": "prompts/orchestration/08-AGENT_ENGINE.prompt", "dependencies": ["05-rule-engine", "07-prompt-engine"], "produces": ["agent-definitions"] },
+      { "id": "09-validation-engine", "name": "VALIDATION_ENGINE", "path": "prompts/orchestration/09-VALIDATION_ENGINE.prompt", "dependencies": ["05-rule-engine", "06-schema-engine"], "produces": ["validation-rules", "validation-scripts"] },
+      { "id": "10-review-engine", "name": "REVIEW_ENGINE", "path": "prompts/orchestration/10-REVIEW_ENGINE.prompt", "dependencies": ["09-validation-engine"], "produces": ["review-standards"] },
+      { "id": "11-quality-gate", "name": "QUALITY_GATE", "path": "prompts/orchestration/11-QUALITY_GATE.prompt", "dependencies": ["10-review-engine"], "produces": ["quality-gate-report"] },
+      { "id": "12-final-assembler", "name": "FINAL_ASSEMBLER", "path": "prompts/orchestration/12-FINAL_ASSEMBLER.prompt", "dependencies": ["11-quality-gate"], "produces": ["deployment-package"] }
+    ]
+  },
+
+  "agents": {
+    "system_version": "1.0.0",
+    "definitions": [
+      { "id": "planner", "name": "Planner", "path": "agents/planner.json" },
+      { "id": "business-analyst", "name": "Business Analyst", "path": "agents/business-analyst.json" },
+      { "id": "product-manager", "name": "Product Manager", "path": "agents/product-manager.json" },
+      { "id": "solution-architect", "name": "Solution Architect", "path": "agents/solution-architect.json" },
+      { "id": "frontend-architect", "name": "Frontend Architect", "path": "agents/frontend-architect.json" },
+      { "id": "backend-architect", "name": "Backend Architect", "path": "agents/backend-architect.json" },
+      { "id": "database-architect", "name": "Database Architect", "path": "agents/database-architect.json" },
+      { "id": "devops-engineer", "name": "DevOps Engineer", "path": "agents/devops-engineer.json" },
+      { "id": "security-engineer", "name": "Security Engineer", "path": "agents/security-engineer.json" },
+      { "id": "qa-engineer", "name": "QA Engineer", "path": "agents/qa-engineer.json" },
+      { "id": "documentation-engineer", "name": "Documentation Engineer", "path": "agents/documentation-engineer.json" },
+      { "id": "reviewer", "name": "Reviewer", "path": "agents/reviewer.json" },
+      { "id": "refactoring-agent", "name": "Refactoring Agent", "path": "agents/refactoring-agent.json" },
+      { "id": "release-manager", "name": "Release Manager", "path": "agents/release-manager.json" },
+      { "id": "validation-engine", "name": "Validation Engine", "path": "agents/validation-engine.json" }
+    ]
+  },
+
+  "standards": {
+    "yaml_front_matter": {
+      "required": true,
+      "required_fields": ["id", "title", "owner", "status", "version", "depends_on", "generates", "reviewers", "last_updated", "tags"]
+    },
+    "status_values": ["draft", "in-review", "active", "deprecated"],
+    "priority_values": ["critical", "high", "medium", "low"],
+    "task_status_values": ["backlog", "todo", "in-progress", "blocked", "in-review", "done", "cancelled"]
+  },
+
+  "validation": {
+    "rules": [
+      "no-broken-links",
+      "no-broken-references",
+      "no-broken-dependencies",
+      "valid-yaml-front-matter",
+      "valid-json",
+      "valid-markdown",
+      "valid-mermaid",
+      "valid-openapi",
+      "valid-asyncapi",
+      "valid-graphql",
+      "no-missing-sections",
+      "no-missing-dod",
+      "no-missing-acceptance-criteria",
+      "no-missing-owners",
+      "no-missing-reviewers",
+      "no-duplicate-requirements",
+      "no-duplicate-definitions",
+      "no-undefined-terminology",
+      "no-circular-dependencies",
+      "valid-metadata",
+      "valid-schemas",
+      "valid-cross-references"
+    ]
+  },
+
+  "traceability": {
+    "enabled": true,
+    "levels": ["business-goal", "feature", "task", "implementation", "api", "database", "test-case", "deployment", "release", "maintenance"]
+  }
+}

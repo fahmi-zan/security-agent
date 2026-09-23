@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://blueprintos.dev/schemas/task.schema.json",
+  "title": "Task",
+  "description": "Definition of a task.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique task identifier.", "pattern": "^TASK-\\d+$" },
+    "title": { "type": "string", "description": "Task title.", "minLength": 1 },
+    "description": { "type": "string", "description": "Detailed task description." },
+    "priority": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+    "owner": { "type": "string", "description": "Task owner (agent or person)." },
+    "status": { "type": "string", "enum": ["backlog", "todo", "in-progress", "blocked", "in-review", "done", "cancelled"] },
+    "depends_on": { "type": "array", "description": "Tasks this task depends on.", "items": { "type": "string" } },
+    "blocks": { "type": "array", "description": "Tasks blocked by this task.", "items": { "type": "string" } },
+    "acceptance_criteria": { "type": "array", "description": "Task acceptance criteria.", "items": { "type": "string" } },
+    "definition_of_done": { "type": "array", "description": "Task Definition of Done.", "items": { "type": "string" } },
+    "estimated_complexity": { "type": "string", "enum": ["xs", "s", "m", "l", "xl"] },
+    "related_features": { "type": "array", "description": "Related features.", "items": { "type": "string" } },
+    "related_adrs": { "type": "array", "description": "Related ADRs.", "items": { "type": "string" } },
+    "related_apis": { "type": "array", "description": "Related API endpoints.", "items": { "type": "string" } },
+    "related_tests": { "type": "array", "description": "Related test files.", "items": { "type": "string" } },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "required": [
+    "id",
+    "title",
+    "description",
+    "priority",
+    "owner",
+    "status",
+    "acceptance_criteria",
+    "definition_of_done",
+    "estimated_complexity"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "blueprintos-version",
+  "blueprintos": {
+    "version": "1.0.0",
+    "released": "2026-07-28",
+    "status": "stable",
+    "changelog": [
+      {
+        "version": "1.0.0",
+        "date": "2026-07-28",
+        "type": "major",
+        "changes": [
+          "Initial BlueprintOS release",
+          "12-prompt orchestration system",
+          "15 specialized AI agents",
+          "Validation engine",
+          "Review engine",
+          "Traceability system",
+          "Quality gate system",
+          "Schema library",
+          "Prompt library",
+          "Template library",
+          "Checklist library"
+        ]
+      }
+    ]
+  },
+  "project": {
+    "version": "0.1.0",
+    "status": "initial",
+    "changelog": []
+  },
+  "schemas": { "version": "1.0.0", "last_updated": "2026-07-28" },
+  "agents": { "version": "1.0.0", "last_updated": "2026-07-28" },
+  "prompts": { "version": "1.0.0", "last_updated": "2026-07-28" },
+  "templates": { "version": "1.0.0", "last_updated": "2026-07-28" },
+  "validation": { "version": "1.0.0", "last_updated": "2026-07-28" },
+  "reviews": { "version": "1.0.0", "last_updated": "2026-07-28" }
+}

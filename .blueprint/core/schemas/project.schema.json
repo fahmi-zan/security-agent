@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://blueprintos.dev/schemas/project.schema.json",
+  "title": "Project",
+  "description": "Definition of a BlueprintOS project.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique project identifier.", "minLength": 1 },
+    "name": { "type": "string", "description": "Project name.", "minLength": 1 },
+    "description": { "type": "string", "description": "Project description." },
+    "version": { "type": "string", "description": "Project version (SemVer).", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "in-review", "deprecated", "archived"] },
+    "owner": { "type": "string", "description": "Project owner." },
+    "created_at": { "type": "string", "format": "date-time", "description": "Project creation timestamp." },
+    "features": { "type": "array", "description": "Project features.", "items": { "type": "string" } }
+  },
+  "required": ["id", "name", "version", "status", "owner"],
+  "additionalProperties": false
+}

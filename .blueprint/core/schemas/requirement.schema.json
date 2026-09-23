@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://blueprintos.dev/schemas/requirement.schema.json",
+  "title": "Requirement",
+  "description": "Definition of a requirement.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique requirement identifier.", "pattern": "^REQ-\\d+$" },
+    "title": { "type": "string", "description": "Requirement title.", "minLength": 1 },
+    "description": { "type": "string", "description": "Requirement description." },
+    "type": { "type": "string", "enum": ["functional", "non-functional", "business", "technical", "constraint"] },
+    "priority": { "type": "string", "enum": ["must-have", "should-have", "could-have", "won't-have"] },
+    "source": { "type": "string", "description": "Requirement source (stakeholder, document, etc.)." },
+    "status": { "type": "string", "enum": ["proposed", "approved", "in-development", "implemented", "rejected"] },
+    "linked_features": { "type": "array", "description": "Features this requirement maps to.", "items": { "type": "string" } },
+    "acceptance_criteria": { "type": "array", "description": "Acceptance criteria for this requirement.", "items": { "type": "string" } },
+    "dependencies": { "type": "array", "description": "Requirements this requirement depends on.", "items": { "type": "string" } }
+  },
+  "required": ["id", "title", "type", "priority", "status"],
+  "additionalProperties": false
+}
