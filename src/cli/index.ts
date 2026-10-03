@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import { discoverProject } from '../discovery/index.js';
 import { generateThreatModel } from '../core/threat-model.js';
